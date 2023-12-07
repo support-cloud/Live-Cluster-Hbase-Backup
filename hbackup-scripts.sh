@@ -37,7 +37,7 @@ if [ -z "$backupType" ]; then
     exit 1
 fi
 
-
+# Setting Basepath for HDFS Location
 BASE_PATH="/apps/hbase"
 
 if [ "$backupType" == "FULL_BACKUP" ]; then
@@ -46,7 +46,8 @@ if [ "$backupType" == "FULL_BACKUP" ]; then
     backupStartTimestamp="-2147483648"
     backupEndTimestamp="$(date +%s)000"
     versionNumber="2147483648"
-
+    
+    # Creating backup Base Path
     BACKUP_BASE_PATH="$BASE_PATH/$backupType"
 
     echo -e "Starting FULL BACKUP - data will be stored in $BACKUP_BASE_PATH/"
@@ -59,7 +60,7 @@ if [ "$backupType" == "FULL_BACKUP" ]; then
 
 elif [ "$backupType" == "INCREMENTAL_BACKUP" ]; then
 
-    # Setting parameter & it will take incremental backup from the last 4 hours till now
+    # Setting a parameter & it will take incremental backup from the last 4 hours till now
 
     echo -e "HBASE BACKUP: Starting INCREMENTAL_BACKUP\n"
     backupStartTimestamp="$(date --date='4 hours ago' +%s)000"
